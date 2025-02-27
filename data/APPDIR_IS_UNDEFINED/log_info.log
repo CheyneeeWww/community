@@ -1,0 +1,5 @@
+2025-02-27 15:59:44,262 INFO [main] c.n.c.LoggerTests [StartupInfoLogger.java:53] Starting LoggerTests using Java 23.0.2 with PID 19416 (started by cnwang in E:\community)
+2025-02-27 15:59:44,266 INFO [main] c.n.c.LoggerTests [SpringApplication.java:652] No active profile set, falling back to 1 default profile: "default"
+2025-02-27 15:59:45,562 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:59] Adding welcome page template: index
+2025-02-27 15:59:45,938 INFO [main] c.n.c.LoggerTests [StartupInfoLogger.java:59] Started LoggerTests in 2.19 seconds (process running for 2.838)
+2025-02-27 15:59:46,445 INFO [main] c.n.c.LoggerTests [LoggerTests.java:23] info log
