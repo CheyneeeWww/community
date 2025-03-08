@@ -3,3 +3,49 @@
 2025-02-27 15:59:45,562 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:59] Adding welcome page template: index
 2025-02-27 15:59:45,938 INFO [main] c.n.c.LoggerTests [StartupInfoLogger.java:59] Started LoggerTests in 2.19 seconds (process running for 2.838)
 2025-02-27 15:59:46,445 INFO [main] c.n.c.LoggerTests [LoggerTests.java:23] info log
+2025-03-08 00:50:01,648 INFO [restartedMain] c.n.c.CommunityApplication [StartupInfoLogger.java:53] Starting CommunityApplication using Java 23.0.2 with PID 16956 (E:\community\target\classes started by cnwang in E:\community)
+2025-03-08 00:50:01,657 INFO [restartedMain] c.n.c.CommunityApplication [SpringApplication.java:652] No active profile set, falling back to 1 default profile: "default"
+2025-03-08 00:50:01,842 INFO [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor [DeferredLog.java:252] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-08 00:50:01,843 INFO [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor [DeferredLog.java:252] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-08 00:50:04,504 INFO [restartedMain] o.s.b.w.e.t.TomcatWebServer [TomcatWebServer.java:111] Tomcat initialized with port 8080 (http)
+2025-03-08 00:50:04,527 INFO [restartedMain] o.a.c.h.Http11NioProtocol [DirectJDKLog.java:173] Initializing ProtocolHandler ["http-nio-8080"]
+2025-03-08 00:50:04,531 INFO [restartedMain] o.a.c.c.StandardService [DirectJDKLog.java:173] Starting service [Tomcat]
+2025-03-08 00:50:04,531 INFO [restartedMain] o.a.c.c.StandardEngine [DirectJDKLog.java:173] Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-08 00:50:04,673 INFO [restartedMain] o.a.c.c.C.[.[.[/community] [DirectJDKLog.java:173] Initializing Spring embedded WebApplicationContext
+2025-03-08 00:50:04,677 INFO [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java:301] Root WebApplicationContext: initialization completed in 2827 ms
+2025-03-08 00:50:05,721 INFO [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:59] Adding welcome page template: index
+2025-03-08 00:50:06,563 INFO [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java:59] LiveReload server is running on port 35729
+2025-03-08 00:50:06,585 INFO [restartedMain] o.a.c.h.Http11NioProtocol [DirectJDKLog.java:173] Starting ProtocolHandler ["http-nio-8080"]
+2025-03-08 00:50:06,617 INFO [restartedMain] o.s.b.w.e.t.TomcatWebServer [TomcatWebServer.java:243] Tomcat started on port 8080 (http) with context path '/community'
+2025-03-08 00:50:06,633 INFO [restartedMain] c.n.c.CommunityApplication [StartupInfoLogger.java:59] Started CommunityApplication in 6.282 seconds (process running for 6.864)
+2025-03-08 00:50:21,442 INFO [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/community] [DirectJDKLog.java:173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-08 00:50:21,443 INFO [http-nio-8080-exec-1] o.s.w.s.DispatcherServlet [FrameworkServlet.java:532] Initializing Servlet 'dispatcherServlet'
+2025-03-08 00:50:21,446 INFO [http-nio-8080-exec-1] o.s.w.s.DispatcherServlet [FrameworkServlet.java:554] Completed initialization in 2 ms
+2025-03-08 00:50:21,580 INFO [http-nio-8080-exec-1] c.z.h.HikariDataSource [HikariDataSource.java:109] HikariPool-1 - Starting...
+2025-03-08 00:50:22,085 INFO [http-nio-8080-exec-1] c.z.h.p.HikariPool [HikariPool.java:554] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1dcfd5c1
+2025-03-08 00:50:22,091 INFO [http-nio-8080-exec-1] c.z.h.HikariDataSource [HikariDataSource.java:122] HikariPool-1 - Start completed.
+2025-03-08 00:55:55,283 INFO [SpringApplicationShutdownHook] o.s.b.w.e.t.GracefulShutdown [GracefulShutdown.java:54] Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-08 00:55:55,304 INFO [tomcat-shutdown] o.s.b.w.e.t.GracefulShutdown [GracefulShutdown.java:76] Graceful shutdown complete
+2025-03-08 00:55:55,313 INFO [SpringApplicationShutdownHook] c.z.h.HikariDataSource [HikariDataSource.java:349] HikariPool-1 - Shutdown initiated...
+2025-03-08 00:55:55,319 INFO [SpringApplicationShutdownHook] c.z.h.HikariDataSource [HikariDataSource.java:351] HikariPool-1 - Shutdown completed.
+2025-03-08 00:56:10,800 INFO [main] c.n.c.LoggerTests [StartupInfoLogger.java:53] Starting LoggerTests using Java 23.0.2 with PID 19764 (started by cnwang in E:\community)
+2025-03-08 00:56:10,816 INFO [main] c.n.c.LoggerTests [SpringApplication.java:652] No active profile set, falling back to 1 default profile: "default"
+2025-03-08 00:56:14,281 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:59] Adding welcome page template: index
+2025-03-08 00:56:15,234 INFO [main] c.n.c.LoggerTests [StartupInfoLogger.java:59] Started LoggerTests in 5.48 seconds (process running for 7.522)
+2025-03-08 00:56:16,871 INFO [main] c.n.c.LoggerTests [LoggerTests.java:23] info log
+2025-03-08 10:15:13,406 INFO [main] c.n.c.MailTests [StartupInfoLogger.java:53] Starting MailTests using Java 23.0.2 with PID 12000 (started by cnwang in E:\community)
+2025-03-08 10:15:13,409 INFO [main] c.n.c.MailTests [SpringApplication.java:652] No active profile set, falling back to 1 default profile: "default"
+2025-03-08 10:15:14,708 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:59] Adding welcome page template: index
+2025-03-08 10:15:15,136 INFO [main] c.n.c.MailTests [StartupInfoLogger.java:59] Started MailTests in 2.098 seconds (process running for 2.751)
+2025-03-08 10:18:05,752 INFO [main] c.n.c.MailTests [StartupInfoLogger.java:53] Starting MailTests using Java 23.0.2 with PID 17380 (started by cnwang in E:\community)
+2025-03-08 10:18:05,754 INFO [main] c.n.c.MailTests [SpringApplication.java:652] No active profile set, falling back to 1 default profile: "default"
+2025-03-08 10:18:06,978 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:59] Adding welcome page template: index
+2025-03-08 10:18:07,388 INFO [main] c.n.c.MailTests [StartupInfoLogger.java:59] Started MailTests in 2.029 seconds (process running for 2.687)
+2025-03-08 10:18:22,876 INFO [main] c.n.c.MailTests [StartupInfoLogger.java:53] Starting MailTests using Java 23.0.2 with PID 20724 (started by cnwang in E:\community)
+2025-03-08 10:18:22,879 INFO [main] c.n.c.MailTests [SpringApplication.java:652] No active profile set, falling back to 1 default profile: "default"
+2025-03-08 10:18:24,235 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:59] Adding welcome page template: index
+2025-03-08 10:18:24,649 INFO [main] c.n.c.MailTests [StartupInfoLogger.java:59] Started MailTests in 2.173 seconds (process running for 2.819)
+2025-03-08 10:21:23,198 INFO [main] c.n.c.MailTests [StartupInfoLogger.java:53] Starting MailTests using Java 23.0.2 with PID 4404 (started by cnwang in E:\community)
+2025-03-08 10:21:23,200 INFO [main] c.n.c.MailTests [SpringApplication.java:652] No active profile set, falling back to 1 default profile: "default"
+2025-03-08 10:21:24,449 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:59] Adding welcome page template: index
+2025-03-08 10:21:24,833 INFO [main] c.n.c.MailTests [StartupInfoLogger.java:59] Started MailTests in 2.027 seconds (process running for 2.674)
