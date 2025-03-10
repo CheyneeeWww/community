@@ -27,7 +27,7 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>23</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -103,10 +103,7 @@
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
-
-
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -115,7 +112,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
-
 </project>
