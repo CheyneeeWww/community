@@ -8,6 +8,13 @@ function publish() {
 	// 获取标题和内容
 	var title = $("#recipient-name").val();
 	var content = $("#message-text").val();
+
+	// 发送AJAX前，带上csrf令牌
+    //let token = $("meta[name= '_csrf']").attr("content");
+    //let header = $("meta[name= '_csrf_header']").attr("content");
+    //$(document).ajaxSend(function (e, xhr, options){
+        //xhr.setRequestHeader(header, token);
+    //});
 	// 发送异步请求(POST)
 	$.post(
 	    CONTEXT_PATH + "/discuss/add",
