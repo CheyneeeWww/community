@@ -53,6 +53,18 @@ public class CommentController implements CommunityConstant {
             Comment target = commentService.findCommentById(comment.getEntityId());
             event.setEntityUserId(target.getUserId());
         }
+
+        // 修改帖子事件——只有对帖子评论才触发，对评论的回复不触发
+        if(comment.getEntityType() == ENTITY_TYPE_POST){
+            event = new Event()
+                    .setTopic(TOPIC_PUBLISH)
+                    .setUserId(comment.getUserId())
+                    .setEntityType(ENTITY_TYPE_POST)
+                    .setEntityId(discussPostId);
+            eventProducer.fireEvent(event);
+        }
+
+
         eventProducer.fireEvent(event);
 
 
