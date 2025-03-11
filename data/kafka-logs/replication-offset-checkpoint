@@ -1,5 +1,5 @@
 0
-56
+57
 test 0 4
 __consumer_offsets 23 0
 __consumer_offsets 29 3
@@ -45,11 +45,12 @@ __consumer_offsets 46 0
 delete 0 1
 publish 0 38
 __consumer_offsets 42 0
-__consumer_offsets 28 8461
+__consumer_offsets 28 8787
 comment 0 1
 __consumer_offsets 4 0
 __consumer_offsets 31 0
 __consumer_offsets 5 0
+share 0 1
 __consumer_offsets 1 0
 __consumer_offsets 15 0
 __consumer_offsets 38 0

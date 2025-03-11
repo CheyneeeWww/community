@@ -536,3 +536,13 @@ This generated password is for development use only. Your security configuration
 
 2025-03-11 21:14:07,316 WARN [restartedMain] o.s.s.c.a.w.b.WebSecurity [WebSecurity.java:306] You are asking Spring Security to ignore Deferred [Mvc [pattern='/resources/**'], Ant [pattern='/resources/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
 2025-03-11 21:14:27,601 WARN [http-nio-8080-exec-1] o.a.c.u.SessionIdGeneratorBase [DirectJDKLog.java:173] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [101] milliseconds.
+2025-03-11 21:52:39,163 WARN [restartedMain] o.a.c.c.C.[.[.[/community] [DirectJDKLog.java:173] Cannot deserialize session attribute [SPRING_SECURITY_CONTEXT] for session [8C609F0D2319AB3B9CBCC5D978BE2053]
+2025-03-11 21:52:43,548 WARN [restartedMain] o.s.b.a.s.s.UserDetailsServiceAutoConfiguration [UserDetailsServiceAutoConfiguration.java:90] 
+
+Using generated security password: 7a42f868-e9b6-4c0d-ba42-a0c48fadfb6f
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-03-11 21:52:44,663 WARN [restartedMain] o.s.s.c.a.w.b.WebSecurity [WebSecurity.java:306] You are asking Spring Security to ignore Deferred [Mvc [pattern='/resources/**'], Ant [pattern='/resources/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2025-03-11 21:52:47,146 WARN [org.springframework.kafka.KafkaListenerEndpointContainer#3-0-C-1] o.a.k.c.NetworkClient [NetworkClient.java:1213] [Consumer clientId=consumer-community-consumer-group-2, groupId=community-consumer-group] Error while fetching metadata with correlation id 2 : {share=LEADER_NOT_AVAILABLE}
+2025-03-11 21:53:08,457 WARN [http-nio-8080-exec-6] o.t.s.p.AbstractStandardFragmentInsertionTagProcessor [AbstractStandardFragmentInsertionTagProcessor.java:385] [THYMELEAF][http-nio-8080-exec-6][error/404] Deprecated unwrapped fragment expression "index::header" found in template error/404, line 14, col 38. Please use the complete syntax of fragment expressions instead ("~{index::header}"). The old, unwrapped syntax for fragment expressions will be removed in future versions of Thymeleaf.
