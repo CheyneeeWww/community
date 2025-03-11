@@ -69,6 +69,8 @@ public interface CommunityConstant {
     // 发帖
     String TOPIC_PUBLISH = "publish";
 
+    String TOPIC_DELETE = "delete";
+
     /**
      * 权限设置
      * 普通用户

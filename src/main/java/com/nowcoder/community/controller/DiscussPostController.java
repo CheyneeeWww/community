@@ -12,10 +12,7 @@ import com.nowcoder.community.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -152,5 +149,66 @@ public class DiscussPostController implements CommunityConstant {
 
         return "/site/discuss-detail";
     }
+
+    /**
+     * 帖子的置顶
+     *
+     */
+    @RequestMapping(path="/top",method = RequestMethod.POST)
+    @ResponseBody
+    public String setTop(int id){
+        DiscussPost discussPost = discussPostService.findDiscussPostById(id);
+        int type = discussPost.getType() == 1 ? 0:1;
+        discussPostService.updateType(id,type);
+
+        Event event = new Event()
+                .setTopic(TOPIC_PUBLISH)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(id);
+        eventProducer.fireEvent(event);
+
+        return CommunityUtil.getJSONString(0);
+    }
+
+    /**
+     * 帖子的加精
+     */
+    @RequestMapping(path="/wonderful",method=RequestMethod.POST)
+    @ResponseBody
+    public String setWonderful(int id){
+        DiscussPost discussPost = discussPostService.findDiscussPostById(id);
+        int status = discussPost.getStatus() == 1 ? 0:1;
+        discussPostService.updateStatus(id,status);
+
+        Event event = new Event()
+                .setTopic(TOPIC_PUBLISH)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(id);
+        eventProducer.fireEvent(event);
+
+        return CommunityUtil.getJSONString(0);
+
+    }
+
+    @RequestMapping(path="/delete",method=RequestMethod.POST)
+    @ResponseBody
+    public String setDelete(int id){
+        DiscussPost discussPost = discussPostService.findDiscussPostById(id);
+        int status = discussPost.getStatus() == 2 ? 0 : 2;
+        discussPostService.updateStatus(id, status);
+
+        // 这时同步es应该是删除帖子
+        Event event = new Event()
+                .setTopic(TOPIC_DELETE)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(id);
+        eventProducer.fireEvent(event);
+
+        return CommunityUtil.getJSONString(0);
+    }
+
 
 }
