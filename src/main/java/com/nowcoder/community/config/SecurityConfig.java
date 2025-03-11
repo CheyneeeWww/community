@@ -2,94 +2,115 @@ package com.nowcoder.community.config;
 
 import com.nowcoder.community.util.CommunityConstant;
 import com.nowcoder.community.util.CommunityUtil;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer;
+import org.springframework.security.config.ldap.LdapBindAuthenticationManagerFactory;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 // 新版写法
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig implements CommunityConstant {
 
     // 忽略静态资源的访问
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         // Lambda 表达式， 输入 web（WebSecurity对象） 返回 web.ignoring().requestMatchers("/resources/**")
-        return web -> web.ignoring().requestMatchers("/resources/**");
+        return (web) -> web.ignoring().requestMatchers("/resources/**");
     }
 
     // 授权
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // 授权请求
-        http.authorizeHttpRequests(authorize -> authorize.requestMatchers(
-                        "/user/setting",  // 用户设置
-                        "/user/upload",   // 上传头像
-                        "/user/updatePassword",  // 修改密码
-                        "/discuss/add",   // 上传帖子
-                        "/comment/add/**", // 评论
-                        "/letter/**",     // 私信
-                        "/notice/**",    // 通知
-                        "/like",         // 点赞
-                        "/follow",       // 关注
-                        "/unfollow"      // 取消关注
-                ).hasAnyAuthority(         // 这些功能只要登录就行
-                        AUTHORITY_USER,
-                        AUTHORITY_ADMIN,
-                        AUTHORITY_MODERATOR
-                ).anyRequest().permitAll()   // 其他任何请求都放行
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // 授权
+        http.authorizeHttpRequests((authorizeHttpRequests) ->
+                        authorizeHttpRequests
+                                .requestMatchers(
+                                        "/user/setting",
+                                        "/user/upload",
+                                        "/discuss/add",
+                                        "/comment/add/**",
+                                        "/letter/**",
+                                        "/notice/**",
+                                        "/like",
+                                        "/follow",
+                                        "/unfollow"
+                                )
+                                .hasAnyAuthority(
+                                        AUTHORITY_USER,
+                                        AUTHORITY_ADMIN,
+                                        AUTHORITY_MODERATOR
+                                )
+                                .anyRequest()
+                                .permitAll()
+                // 图省事，将csrf关闭
+        ).csrf((csrf) -> csrf.disable());
+
+        // 权限不够的时候处理
+        http.exceptionHandling((exceptionHandling) ->
+                exceptionHandling
+                        .authenticationEntryPoint(new AuthenticationEntryPoint() {
+                            // 没有登陆
+                            @Override
+                            public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+                                String xRequestedWith = request.getHeader("x-requested-with");
+                                if ("XMLHttpRequest".equals(xRequestedWith)) {
+                                    response.setContentType("application/plain;charset=utf-8");
+                                    PrintWriter writer = response.getWriter();
+                                    writer.write(CommunityUtil.getJSONString(403, "请您先登陆呢~"));
+                                } else {
+                                    response.sendRedirect(request.getContextPath() + "/login");
+                                }
+                            }
+                        })
+                        .accessDeniedHandler(new AccessDeniedHandler() {
+                            // 权限不足
+                            @Override
+                            public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+                                String xRequestedWith = request.getHeader("x-requested-with");
+                                if ("XMLHttpRequest".equals(xRequestedWith)) {
+                                    response.setContentType("application/plain;charset=utf-8");
+                                    PrintWriter writer = response.getWriter();
+                                    writer.write(CommunityUtil.getJSONString(403, "你没有访问此功能的权限!"));
+                                } else {
+                                    response.sendRedirect(request.getContextPath() + "/denide");
+                                }
+                            }
+                        })
         );
 
-        // 权限不够时的处理：1）普通请求——跳转html页面 2）异步请求——返回json
-        http.exceptionHandling(handle -> handle.authenticationEntryPoint(  // 没有登录时的处理
-                (request, response, authException) -> {
-                    String xRequestedWith = request.getHeader("x-requested-with");  // 判断异步请求——看消息头
-                    if ("XMLHttpRequest".equals(xRequestedWith)) {
-                        // 如果是异步请求，给浏览器弹窗提示
-                        response.setContentType("application/plain;charset=utf-8");
-                        response.getWriter().write(CommunityUtil.getJSONString(403, "你还没有登录哦，请登录后再尝试！"));
-                    } else {
-                        // 同步请求重定向到登录页即可
-                        response.sendRedirect(request.getContextPath() + "/login");
-                    }
-                }
-        ).accessDeniedHandler(
-                (request, response, accessDeniedException) -> {  // 没有权限时的处理
-                    String xRequestedWith = request.getHeader("x-requested-with");
-                    if ("XMLHttpRequest".equals(xRequestedWith)) {
-                        response.setContentType("application/plain;charset=utf-8");
-                        response.getWriter().write(CommunityUtil.getJSONString(403, "权限不足！"));
-                    } else {
-                        response.sendRedirect(request.getContextPath() + "/denied");
-                    }
-                }
-        ));
+        // Security 底层默认会拦截 /logout 请求，进行退出的处理。
+        // 我们覆盖它默认的逻辑，才能执行我们自己退出的代码
+        http.logout((logout) ->
+                logout.logoutUrl("/securitylogout")
+        );
 
-        // Security会自动拦截/logout请求，进行退出处理
-        // 由于底层是Filter，执行在我们写的Controller之前，所以如果不做处理，我们的/logout处理就无效了
-        // 覆盖它默认的逻辑，才能执行我们自己的退出代码
-        http.logout(logout -> logout.logoutUrl("/securitylogout")); // 随便让他拦截一个项目中没有的路径，这样我们的/logout就逃过了Security的监管
-        // 默认开启防止CSRF攻击，如果要部分关闭，用下面的配置
-        // http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.ignoringRequestMatchers("/actuator/**"));
         return http.build();
     }
 
-    // 下面两个函数指定了：
-    // 把用户的安全信息（用户是谁，权限）存储在用Session中
-    // 每次用户请求到来时，Security会从会话中取出这些信息，进行安全验证
-    @Bean
-    public SecurityContextRepository securityContextRepository() {
-        return new HttpSessionSecurityContextRepository();
-    }
 
     // 用户登出时，确保清除所有的安全信息，使得用户完全退出登录状态
     // 清空用户的会话，删除会话中的安全信息
     @Bean
-    public SecurityContextLogoutHandler securityContextLogoutHandler() {
-        return new SecurityContextLogoutHandler();
+    public SecurityContextRepository securityContextRepository() {
+        return new HttpSessionSecurityContextRepository();
     }
 }
